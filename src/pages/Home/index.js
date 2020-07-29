@@ -1,19 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import api from '../../services/api';
 
 import { MdFavorite } from 'react-icons/md';
 import { FaOpencart } from 'react-icons/fa';
 
 import { ListProducts, Container } from './styles';
 
+
 function Home() {
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() =>{
+    async function loadProducts(){
+      const response = await api.get('products');
+      setProducts(response.data);
+    }
+    loadProducts();
+  }, []);
+
+
   return (
     <Container>
     <ListProducts>
-    
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/36/HZM-1731-036/HZM-1731-036_zoom2.jpg?ts=1569489111&ims=326x" alt="nike"/>
-        <strong>Tênis Nike Revolution 5 Masculino</strong>
-        <span>R$ 249,99</span>
+      { products.map(products => (
+        <li key={products.id}>
+        <img src={products.image} alt={products.title}/>
+        <strong>{products.title}</strong>
+        <span>{products.price}</span>
         <div>
           <div className="cart">
             <span>1</span>
@@ -25,81 +39,7 @@ function Home() {
         </div>
         <button>Adicionar ao carrinho</button>
       </li>
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/36/HZM-1731-036/HZM-1731-036_zoom2.jpg?ts=1569489111&ims=326x" alt="nike"/>
-        <strong>Tênis Nike Revolution 5 Masculino</strong>
-        <span>R$ 249,99</span>
-        <div>
-          <div className="cart">
-            <span>1</span>
-            <FaOpencart />
-          </div>
-          <div className="favorite">
-            <MdFavorite color="red" />
-          </div>
-        </div>
-        <button>Adicionar ao carrinho</button>
-      </li>
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/36/HZM-1731-036/HZM-1731-036_zoom2.jpg?ts=1569489111&ims=326x" alt="nike"/>
-        <strong>Tênis Nike Revolution 5 Masculino</strong>
-        <span>R$ 249,99</span>
-        <div>
-          <div className="cart">
-            <span>1</span>
-            <FaOpencart />
-          </div>
-          <div className="favorite">
-            <MdFavorite color="red" />
-          </div>
-        </div>
-        <button>Adicionar ao carrinho</button>
-      </li>
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/36/HZM-1731-036/HZM-1731-036_zoom2.jpg?ts=1569489111&ims=326x" alt="nike"/>
-        <strong>Tênis Nike Revolution 5 Masculino</strong>
-        <span>R$ 249,99</span>
-        <div>
-          <div className="cart">
-            <span>1</span>
-            <FaOpencart />
-          </div>
-          <div className="favorite">
-            <MdFavorite color="red" />
-          </div>
-        </div>
-        <button>Adicionar ao carrinho</button>
-      </li>
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/36/HZM-1731-036/HZM-1731-036_zoom2.jpg?ts=1569489111&ims=326x" alt="nike"/>
-        <strong>Tênis Nike Revolution 5 Masculino</strong>
-        <span>R$ 249,99</span>
-        <div>
-          <div className="cart">
-            <span>1</span>
-            <FaOpencart />
-          </div>
-          <div className="favorite">
-            <MdFavorite color="red" />
-          </div>
-        </div>
-        <button>Adicionar ao carrinho</button>
-      </li>
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/36/HZM-1731-036/HZM-1731-036_zoom2.jpg?ts=1569489111&ims=326x" alt="nike"/>
-        <strong>Tênis Nike Revolution 5 Masculino</strong>
-        <span>R$ 249,99</span>
-        <div>
-          <div className="cart">
-            <span>1</span>
-            <FaOpencart />
-          </div>
-          <div className="favorite">
-            <MdFavorite color="red" />
-          </div>
-        </div>
-        <button>Adicionar ao carrinho</button>
-      </li>
+      ))}    
     </ListProducts>
     </Container>
   )

@@ -45,7 +45,7 @@ export const ListProducts = styled.ul`
         justify-content: space-between;
         padding: 10px;
         width: 200px;
-        margin: 0 auto;
+        margin: auto;
 
         div {
           padding: 3px 9px;
@@ -72,6 +72,7 @@ export const ListProducts = styled.ul`
       margin-top: auto;
       padding: 12px;
       overflow: hidden;
+      margin-top: auto;
 
       &:hover {
         opacity: 0.7;
