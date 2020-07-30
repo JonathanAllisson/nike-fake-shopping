@@ -27,8 +27,12 @@ function Home() {
 
   const dispatch = useDispatch();
 
-  const cart = useSelector(state => state.cart);
-
+  const amount = useSelector(state =>
+    state.cart.reduce((sumAmount, product) => {
+      sumAmount[product.id] = product.amount;
+      return sumAmount;
+    },{})
+  );
 
 
   return (
@@ -41,7 +45,7 @@ function Home() {
           <span>{product.priceFormatted}</span>
           <div>
             <div className="cart">
-              <span>0</span>
+              <span>{amount[product.id] || 0}</span>
               <FaOpencart />
             </div>
             <div className="favorite">
