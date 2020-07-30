@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import api from '../../services/api';
 
 import { MdFavorite } from 'react-icons/md';
 import { FaOpencart } from 'react-icons/fa';
 
 import { ListProducts, Container } from './styles';
+import { formatPrice } from '../../util/format';
 
 
 function Home() {
@@ -14,33 +16,42 @@ function Home() {
   useEffect(() =>{
     async function loadProducts(){
       const response = await api.get('products');
-      setProducts(response.data);
+      const data = response.data.map(product => ({
+        ...product,
+        priceFormatted: formatPrice(product.price),
+      }))
+      setProducts(data);
     }
     loadProducts();
   }, []);
 
+  const dispatch = useDispatch();
+
+  const cart = useSelector(state => state.cart);
+
+
 
   return (
     <Container>
-    <ListProducts>
-      { products.map(products => (
-        <li key={products.id}>
-        <img src={products.image} alt={products.title}/>
-        <strong>{products.title}</strong>
-        <span>{products.price}</span>
-        <div>
-          <div className="cart">
-            <span>1</span>
-            <FaOpencart />
+      <ListProducts>
+        { products.map(product => (
+          <li key={product.id}>
+          <img src={product.image} alt={product.title}/>
+          <strong>{product.title}</strong>
+          <span>{product.priceFormatted}</span>
+          <div>
+            <div className="cart">
+              <span>0</span>
+              <FaOpencart />
+            </div>
+            <div className="favorite">
+              <MdFavorite color="red" />
+            </div>
           </div>
-          <div className="favorite">
-            <MdFavorite color="red" />
-          </div>
-        </div>
-        <button>Adicionar ao carrinho</button>
-      </li>
-      ))}    
-    </ListProducts>
+          <button onClick={() => dispatch({ type: 'ADD_TO_CART', product })}>Adicionar ao carrinho</button>
+        </li>
+        ))}    
+      </ListProducts>
     </Container>
   )
 }

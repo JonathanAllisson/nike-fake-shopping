@@ -45,7 +45,7 @@ export const ListProducts = styled.ul`
         justify-content: space-between;
         padding: 10px;
         width: 200px;
-        margin: auto;
+        margin: 0px auto;
 
         div {
           padding: 3px 9px;

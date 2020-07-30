@@ -1,10 +1,46 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { MdRemoveShoppingCart, MdRemoveCircleOutline, MdAddCircleOutline } from 'react-icons/md';
 
 import { Container, ProductTable, Total } from './styles';
 
+import {formatPrice} from '../../util/format';
+
 function Cart() {
+
+  const cart  = useSelector(state => {
+    return {
+      products: state.cart.map(product => ({
+        ...product,
+        subtotal: formatPrice(product.price * product.amount),
+      })),
+      total: formatPrice(state.cart.reduce((total, product) => {
+        return total + product.price * product.amount;
+      }, 0)),
+    }
+  })
+
+
+
+  const dispatch = useDispatch();
+
+  function increment(product){
+    dispatch({
+      type: 'UPDATE_AMOUNT',
+      id: product.id,
+      amount: product.amount + 1,
+    })
+  }
+  
+  function decrement(product){
+    dispatch({
+      type: 'UPDATE_AMOUNT',
+      id: product.id,
+      amount: product.amount - 1,
+    })
+  }
+
   return (
       <Container>
         <ProductTable>
@@ -19,37 +55,40 @@ function Cart() {
           </thead>
 
           <tbody>
-            <tr>
-              <td>
-                <img src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-feminino/26/HZM-1729-026/HZM-1729-026_zoom2.jpg?ts=1569489067&ims=326x" alt="Nike"/>
-              </td>
+            { cart.products.map(product => (
+              <tr key={product.id}>
+                <td>
+                  <img src={product.image} alt={product.title}/>
+                </td>
 
-              <td>
-                <strong>Tenis nike new era 2.0</strong>
-                <span>R$ 249,99</span>
-              </td>
+                <td>
+                  <strong>{product.title}</strong>
+                  <span>{product.priceFormatted}</span>
+                </td>
 
-              <td>
-                <div>
-                  <button>
-                    <MdRemoveCircleOutline size={20} color="#000" />
+                <td>
+                  <div>
+                    <button onClick={() => decrement(product)}>
+                      <MdRemoveCircleOutline size={20} color="#000" />
+                    </button>
+                    <input type="number" readOnly value={product.amount} />
+                    <button onClick={() => increment(product)}>
+                      <MdAddCircleOutline size={20} color="#000" />
+                    </button>
+                  </div>
+                </td>
+
+                <td>
+                  <strong>{product.subtotal}</strong>
+                </td>
+                <td>
+                  <button onClick={() => dispatch({ type: 'REMOVE_FROM_CART', id: product.id })}>
+                    <MdRemoveShoppingCart size={20} color="#000" />
                   </button>
-                  <input type="number" readOnly value={1} />
-                  <button>
-                    <MdAddCircleOutline size={20} color="#000" />
-                  </button>
-                </div>
-              </td>
-
-              <td>
-                <strong>R$ 249,99</strong>
-              </td>
-              <td>
-                <button>
-                  <MdRemoveShoppingCart size={20} color="#000" />
-                </button>
-              </td>
-            </tr>
+                </td>
+              </tr>
+            ))}
+            
           </tbody>
         </ProductTable>
 
@@ -57,7 +96,7 @@ function Cart() {
           <button>Finalizar compra</button>
             <Total>
               <span>TOTAL</span>
-              <strong>R$ 249,99</strong>
+              <strong>{cart.total}</strong>
             </Total>
         </footer>
       </Container>
