@@ -1,5 +1,6 @@
 <h1 align="center">
-    <img src="./src/assets/nike-logo.png" alt="fake" width="120" height="50"> 
+    <img src="./src/assets/nike-logo.png" alt="fake" width="120" height="100"> 
+    <span>Fake</span>
 </h1>
 
 <h1 align="center">
