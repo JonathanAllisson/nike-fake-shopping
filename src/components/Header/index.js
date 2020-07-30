@@ -14,7 +14,7 @@ function Header() {
   return (
     <Container>
       <Link to="/">
-        <img src='https://conteudo.imguol.com.br/c/noticias/69/2017/06/05/logo-da-nike-1496688780234_v2_1920x1359.png' alt="nike" />
+        <img src={require('../../assets/nike-logo.png')} alt="nike-logo" />
       </Link>
       <Cart to="/cart">
         <div>
