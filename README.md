@@ -9,6 +9,28 @@
     <a href="https://react-redux.js.org/api/hooks">🔗 React Redux</a>
 </h1>
 
+<div align="center">
+    <img src="./git/todolist.gif">
+</div>
+
+### 🎲 Rodando em sua máquina
+
+```bash
+# Clone o repositório do backend
+$ git clone <https://github.com/JonathanAllisson/nike-fake-shopping>
+
+# Acesse a pasta do projeto no terminal/cmd
+# Vá para a pasta server
+# Instale as dependências
+$ npm install ou yarn
+
+# Execute a aplicação em modo de desenvolvimento
+$ npm run dev ou yarn dev
+
+# O servidor inciará na porta:3000 - acesse <http://localhost:3000>
+
+```
+
 ### 🛠 Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
