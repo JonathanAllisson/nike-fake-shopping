@@ -10,7 +10,7 @@
 </h1>
 
 <div align="center">
-    <img src="./git/todolist.gif">
+    <img src="./git/nikefake.gif">
 </div>
 
 ### 🎲 Rodando em sua máquina
