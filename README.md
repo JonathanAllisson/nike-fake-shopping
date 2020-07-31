@@ -20,7 +20,7 @@
 $ git clone <https://github.com/JonathanAllisson/nike-fake-shopping>
 
 # Acesse a pasta do projeto no terminal/cmd
-# Vá para a pasta server
+# Vá para a pasta do projeto
 # Instale as dependências
 $ npm install ou yarn
 
